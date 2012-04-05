@@ -37,7 +37,7 @@ end
 
 if node[:jenkins][:http_proxy][:openid]
   if not node[:jenkins][:http_proxy][:openid_provider]
-    node[:jenkins][:http_proxy][:openid_provider = "^https://www.google.com/a/#{node[:jenkins][:http_proxy][:openid_host]}/o8/ud$"
+    node[:jenkins][:http_proxy][:openid_provider] = "^https://www.google.com/a/#{node[:jenkins][:http_proxy][:openid_host]}/o8/ud$"
   end
 end
 
