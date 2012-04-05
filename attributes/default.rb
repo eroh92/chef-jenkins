@@ -120,3 +120,7 @@ default[:jenkins][:http_proxy][:listen_ports]         = [ 80 ]
 default[:jenkins][:http_proxy][:host_name]            = nil
 default[:jenkins][:http_proxy][:host_aliases]         = []
 default[:jenkins][:http_proxy][:client_max_body_size] = "1024m"
+default[:jenkins][:http_proxy][:openid]               = false
+default[:jenkins][:http_proxy][:openid_host]          = nil
+default[:jenkins][:http_proxy][:openid_login_page]    = nil
+default[:jenkins][:http_proxy][:openid_provider]      = nil
