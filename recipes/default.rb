@@ -67,14 +67,16 @@ node[:jenkins][:server][:plugins].each do |name|
     action :nothing
   end
 
-  http_request "HEAD #{node[:jenkins][:mirror]}/latest/#{name}.hpi" do
-    message ""
-    url "#{node[:jenkins][:mirror]}/latest/#{name}.hpi"
-    action :head
-    if File.exists?("#{node[:jenkins][:server][:home]}/plugins/#{name}.hpi")
-      headers "If-Modified-Since" => File.mtime("#{node[:jenkins][:server][:home]}/plugins/#{name}.hpi").httpdate
+  if !File.exists?("#{node[:jenkins][:server][:home]}/plugins/#{name}.hpi")
+    http_request "HEAD #{node[:jenkins][:mirror]}/latest/#{name}.hpi" do
+      message ""
+      url "#{node[:jenkins][:mirror]}/latest/#{name}.hpi"
+      action :head
+      if File.exists?("#{node[:jenkins][:server][:home]}/plugins/#{name}.hpi")
+        headers "If-Modified-Since" => File.mtime("#{node[:jenkins][:server][:home]}/plugins/#{name}.hpi").httpdate
+      end
+      notifies :create, resources(:remote_file => "#{node[:jenkins][:server][:home]}/plugins/#{name}.hpi"), :immediately
     end
-    notifies :create, resources(:remote_file => "#{node[:jenkins][:server][:home]}/plugins/#{name}.hpi"), :immediately
   end
 end
 
