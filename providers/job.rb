@@ -56,7 +56,7 @@ end
 #there is no cli update-job command
 def action_update
   if job_exists
-    post_job(job_url)
+    jenkins_cli "update-job #{@new_resource.job_name} < #{@new_resource.config}"
   else
     post_job(new_job_url)
   end
